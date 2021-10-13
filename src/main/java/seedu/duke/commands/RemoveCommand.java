@@ -4,6 +4,8 @@ import seedu.duke.data.Catalogue;
 import seedu.duke.data.Item;
 import seedu.duke.ui.TextUI;
 
+import java.util.logging.Logger;
+
 import static seedu.duke.common.Messages.RM_INVALID_FORMAT;
 import static seedu.duke.common.Messages.INVALID_ID;
 import static seedu.duke.common.Messages.RM_SUCCESS;
@@ -27,6 +29,7 @@ public class RemoveCommand extends Command {
      */
     @Override
     public void execute(TextUI ui, Catalogue catalogue) {
+        Logger logger = Logger.getLogger(RemoveCommand.class.getName());
         try {
             String[] argList = args.split(" ");
             if (argList.length == 2) {
@@ -37,8 +40,10 @@ public class RemoveCommand extends Command {
                 ui.print(INVALID_ID);
             }
         } catch (ArrayIndexOutOfBoundsException e) {
+            logger.warning("Remove: Invalid command");
             ui.print(RM_INVALID_FORMAT);
         } catch (NullPointerException e) {
+            logger.warning("Remove: Invalid ID");
             ui.print(INVALID_ID);
         }
     }
